@@ -1,0 +1,32 @@
+.top {
+  grid-area: top;
+  text-align: center;
+}
+
+.list {
+  grid-area: list;
+}
+
+.footer {
+  grid-area: footer;
+  /* position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center; */
+}
+
+.sidebar {
+  grid-area: sidebar;
+}
+
+.container {
+  display: grid;
+  column-gap: 10px;
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    'top top top'
+    'sidebar list list'
+    'footer footer footer';
+}

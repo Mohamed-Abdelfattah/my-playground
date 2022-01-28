@@ -1,0 +1,44 @@
+.content {
+  border: 1px solid;
+}
+
+.content ul {
+  list-style: none;
+  padding: 1rem;
+  margin: 0;
+  height: 50vh;
+  overflow: scroll;
+}
+
+.content header {
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.active header {
+  background: #870099;
+}
+
+.active header h2 {
+  color: white;
+  margin: 0;
+}
+
+.active {
+  border-color: #870099;
+}
+
+.finished {
+  border-color: #535353;
+}
+
+.finished > header {
+  background: #535353;
+}
+
+.finished header h2 {
+  color: white;
+  margin: 0;
+}

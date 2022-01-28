@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
@@ -6,6 +6,7 @@ import TrelloPage from './Trello-Homemade/Trello-Page';
 
 const App = () => {
   //
+
   return (
     <Switch>
       <Route path="/" exact>
