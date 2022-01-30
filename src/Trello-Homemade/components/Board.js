@@ -5,14 +5,6 @@ import './Board.css';
 import { listActions } from '../store';
 // import Header from './Header';
 
-const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-
-  return result;
-};
-
 const Board = (props) => {
   //
   const listsToBeRendered = useSelector((state) => state.listsOrder);
@@ -23,22 +15,26 @@ const Board = (props) => {
 
   const dragHandler = (result) => {
     // to update the columns state (order of appearance)
-    const destinationList = result.destination.droppableId;
-    const sourceList = result.source.droppableId;
-    const destinationIndex = result.destination.index;
-    const sourceIndex = result.source.index;
+    const { source, destination, draggableId } = result;
+    // const destinationList = destination.droppableId;
+    // const sourceList = source.droppableId;
+    // const destinationIndex = destination.index;
+    // const sourceIndex = source.index;
 
-    if (!result.destination) return;
+    if (!destination) return;
 
-    if (destinationIndex === sourceIndex && sourceList === destinationList)
+    if (
+      destination.index === source.index &&
+      source.droppableId === destination.droppableId
+    )
       return;
 
     dispatch(
       listActions.updateTasksOrder({
-        sourceIndex,
-        sourceList,
-        destinationIndex,
-        destinationList,
+        sourceIndex: source.index,
+        sourceList: source.droppableId,
+        destinationIndex: destination.index,
+        destinationList: destination.droppableId,
       })
     );
   };
