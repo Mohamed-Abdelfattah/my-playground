@@ -1,5 +1,5 @@
-import { Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
+import DroppingWrapper from '../utils/DroppingWrapper';
 import Card from './Card';
 import './List.css';
 
@@ -16,17 +16,14 @@ const List = (props) => {
       <header>
         <h2>{props.data.title || 'List name'}</h2>
       </header>
-      <Droppable droppableId={props.data.id}>
-        {(provided) => (
-          <ul ref={provided.innerRef} {...provided.droppableProps}>
-            {props.data.taskIds.length > 0 &&
-              props.data.taskIds.map((taskId, index) => (
-                <Card key={taskId} data={taskData[taskId]} index={index} />
-              ))}
-            {provided.placeholder}
-          </ul>
-        )}
-      </Droppable>
+      <DroppingWrapper>
+        <ul>
+          {props.data.taskIds.length > 0 &&
+            props.data.taskIds.map((taskId, index) => (
+              <Card key={taskId} data={taskData[taskId]} index={index} />
+            ))}
+        </ul>
+      </DroppingWrapper>
     </section>
   );
 };

@@ -1,58 +1,29 @@
-import { Draggable } from 'react-beautiful-dnd';
+import { useDrag } from 'react-dnd';
+import itemTypes from '../utils/item';
 import './Card.css';
 
-const addTiltToStyleWhileDragging = (alreadyExistingStyle, ShouldAddTilt) => {
-  const newStyle = {
-    ...alreadyExistingStyle,
-    transform: `${alreadyExistingStyle.transform} ${
-      ShouldAddTilt ? 'rotate(3deg)' : ''
-    }`,
-  };
-
-  return newStyle;
-};
-
-const CardItem = (props) => {
-  //
-
-  return (
-    <li
-      // className="card"
-      ref={props.provided.innerRef}
-      {...props.provided.draggableProps}
-      {...props.provided.dragHandleProps}
-      // style={
-      //   props.isItBeenDragged
-      //     ? addTiltToStyleWhileDragging(
-      //         props.provided.draggableProps.style,
-      //         props.isItBeenDragged
-      //       )
-      //     : props.provided.dragHandleProps.style
-      // }
-      className={`card ${props.isItBeenDragged ? 'tilt' : ''}`}
-    >
-      {props.children}
-    </li>
-  );
-};
+// const CardItem = (props) => {
+//   return <li className="card">{props.children}</li>;
+// };
 
 const Card = (props) => {
   //
+  const [{ isDragging }, taskDragRef] = useDrag(() => ({
+    type: itemTypes.CARD,
+    item: { id: props.data.id },
+    collect: (monitor) => ({ isDragging: monitor.isDragging() }),
+  }));
+
+  // const [{ isDragging }, taskDragRef] = useDrag({
+  //   type: itemTypes.CARD,
+  //   item: { id: props.data.id },
+  //   collect: (monitor) => ({ isDragging: monitor.isDragging() }),
+  // });
 
   return (
-    <Draggable draggableId={props.data.id} index={props.index}>
-      {(provided, snapshot) => (
-        <CardItem
-          provided={provided}
-          isItBeenDragged={snapshot.isDragging}
-          // ref={provided.innerRef}
-          // {...provided.draggableProps}
-          // {...provided.dragHandleProps}
-        >
-          <h3>{props.data.content}</h3>
-        </CardItem>
-      )}
-    </Draggable>
+    <li className={`card ${isDragging ? 'tilt' : ''}`} ref={taskDragRef}>
+      <h3>{props.data.content}</h3>
+    </li>
   );
 };
 
